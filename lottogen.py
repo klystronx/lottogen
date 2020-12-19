@@ -3,9 +3,10 @@ class LottoGenerator:
         winningNumbers = 0
     def generate_lotto_numbers(self, count, startRange, endRange):
         import random
+
         winningNumbers = []
         for i in range(count):
-            winningNumbers.append(random.randint(startRange,endRange+1))
+            winningNumbers.append(random.SystemRandom().randint(startRange, endRange + 1))
         return winningNumbers
 
 class Calculator:
@@ -45,4 +46,6 @@ while True:
                                                                                 end='\r')
     if matchedNumbers == 6:
         print('\n BOOM! HIT THE LOTTERY!!')
+        print(myNumbers)
+        print(lottoNumbers)
         break    
