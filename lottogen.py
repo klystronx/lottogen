@@ -47,4 +47,6 @@ while True:
         print('\n BOOM! HIT THE LOTTERY!!')
         print(myNumbers)
         print(lottoNumbers)
-        break    
+        break
+    elif matchedNumbers == 5:
+        print('\n Matched 5! ')
