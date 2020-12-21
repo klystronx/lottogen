@@ -1,13 +1,13 @@
 class LottoGenerator:
     def __init__(self):
         winningNumbers = 0
-    def generate_lotto_numbers(self, count, startRange, endRange):
+    def generate_lotto_draw(self, count, startRange, endRange):
         import random
 
-        winningNumbers = []
+        drawNumbers = []
         for i in range(count):
-            winningNumbers.append(random.SystemRandom().randint(startRange, endRange + 1))
-        return winningNumbers
+            drawNumbers.append(random.SystemRandom().randint(startRange, endRange + 1))
+        return drawNumbers
 
 class Calculator:
     numberMatched = 0
@@ -30,11 +30,10 @@ print()
 while True:
     totalPlays += 1
     matchedNumbers = 0
-    myNumbers = gen.generate_lotto_numbers(6,1,54)
-    lottoNumbers = gen.generate_lotto_numbers(6,1,54)
-    for i in range(len(myNumbers)):
-        if myNumbers[i] in lottoNumbers:
-            matchedNumbers += 1
+    myNumbers = gen.generate_lotto_draw(6,1,54)
+    lottoNumbers = gen.generate_lotto_draw(6,1,54)
+
+    matchedNumbers = len(set(myNumbers).intersection(lottoNumbers))
    
     myCalc.calculatewin(matchedNumbers)
 
