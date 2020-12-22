@@ -3,10 +3,11 @@ class LottoGenerator:
         winningNumbers = 0
     def generate_lotto_draw(self, count, startRange, endRange):
         import random
-
         drawNumbers = []
-        for i in range(count):
-            drawNumbers.append(random.SystemRandom().randint(startRange, endRange + 1))
+        while len(drawNumbers) < count:
+            randomNumber = random.SystemRandom().randint(startRange, endRange + 1)
+            if randomNumber not in drawNumbers:
+                drawNumbers.append(randomNumber)
         return drawNumbers
 
 class Calculator:
@@ -22,10 +23,15 @@ class Calculator:
         self.totalSpent += 1
         self.totalWinnings = self.totalWinnings + self.payouts[numbersMatched]
         self.balance = self.balance + self.payouts[numbersMatched]
+import os
+
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
 
 gen = LottoGenerator()
 myCalc = Calculator()
 totalPlays = 0
+matchedBalls = [0,0,0,0,0,0,0]
 print()
 while True:
     totalPlays += 1
@@ -36,17 +42,20 @@ while True:
     matchedNumbers = len(set(myNumbers).intersection(lottoNumbers))
    
     myCalc.calculatewin(matchedNumbers)
+    matchedBalls[matchedNumbers] += 1
+    
+    if totalPlays % 10000 == 0:
+        os.system('clear')
+        print('Played: %s | Years: %s | Winnings: %s | Spent: %s | Balance: %s' % (totalPlays,
+                                                                                    int(totalPlays/520),
+                                                                                    str(myCalc.totalWinnings),
+                                                                                    str(myCalc.totalSpent),
+                                                                                    str(myCalc.balance)))
 
-    print('Played: %s | Matched: %s | Winnings: %s | Spent: %s | Balance: %s' % (totalPlays,
-                                                                                 matchedNumbers,
-                                                                                str(myCalc.totalWinnings),
-                                                                                str(myCalc.totalSpent),
-                                                                                str(myCalc.balance)),
-                                                                                end='\r')
+        print(matchedBalls)
+
     if matchedNumbers == 6:
         print('\n BOOM! HIT THE LOTTERY!!')
         print(myNumbers)
         print(lottoNumbers)
         break
-    elif matchedNumbers == 5:
-        print('\n Matched 5! ')
