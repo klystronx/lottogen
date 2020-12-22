@@ -3,13 +3,11 @@ class LottoGenerator:
         winningNumbers = 0
     def generate_lotto_draw(self, count, startRange, endRange):
         import random
-        #FIX THIS CRAP-STILL GENERATES REPEATING NUMBERS
-        drawNumbers = [None] * count
-        for i in range(count):
-            drawNumbers[i] = random.SystemRandom().randint(startRange, endRange + 1)
-            # if drawNumbers[i] in drawNumbers:
-            while drawNumbers[i] not in drawNumbers:
-                drawNumbers[i] = random.SystemRandom().randint(startRange, endRange + 1)
+        drawNumbers = []
+        while len(drawNumbers) < count:
+            randomNumber = random.SystemRandom().randint(startRange, endRange + 1)
+            if randomNumber not in drawNumbers:
+                drawNumbers.append(randomNumber)
         return drawNumbers
 
 class Calculator:
@@ -45,10 +43,6 @@ while True:
    
     myCalc.calculatewin(matchedNumbers)
     matchedBalls[matchedNumbers] += 1
-    
-    x = input()
-    print(myNumbers)
-    print(lottoNumbers)
     
     if totalPlays % 10000 == 0:
         os.system('clear')
